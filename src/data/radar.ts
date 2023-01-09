@@ -1,4 +1,4 @@
-import { ECBasicOption, EChartsOption } from "echarts/types/dist/shared";
+import { type ECBasicOption, type EChartsOption } from "echarts/types/dist/shared";
 import * as echarts from 'echarts';
 
 export function radarOption(): ECBasicOption {

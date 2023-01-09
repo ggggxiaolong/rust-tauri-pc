@@ -38,7 +38,7 @@ import { GaugeChart } from "echarts/charts";
 import VChart from "vue-echarts";
 import { ref, Ref, computed } from "vue";
 import { isDark } from "@/composables";
-import { ECBasicOption } from "echarts/types/dist/shared";
+import { type ECBasicOption } from "echarts/types/dist/shared";
 import { TitleComponent, TooltipComponent } from "echarts/components";
 import {
   basicGaugeData,

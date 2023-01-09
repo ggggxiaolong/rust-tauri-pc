@@ -1,4 +1,5 @@
-import { ECBasicOption, EChartsOption } from "echarts/types/dist/shared";
+import { type EChartsOption } from "echarts";
+import { ECBasicOption } from "echarts/types/dist/shared";
 export * from "./radar"
 
 export function basicGaugeData(

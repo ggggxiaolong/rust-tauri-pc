@@ -1,0 +1,10 @@
+:1420 {
+        root * ./dist
+        file_server
+        encode zstd gzip
+        try_files {path}  /index.html
+        # log {
+        #         output file /root/gluten/caddy_log
+        #         format single_field common_log
+        # }
+}
