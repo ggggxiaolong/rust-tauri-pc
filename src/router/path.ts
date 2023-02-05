@@ -3,4 +3,5 @@ export class PATH {
   static THREE: string = "/three";
   static RADAR: string = "/radar";
   static TCP: string = "/tcp";
+  static PYTHON: string = "/python";
 }

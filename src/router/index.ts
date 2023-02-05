@@ -25,6 +25,10 @@ const router = createRouter({
         path: PATH.TCP,
         component: () => import("@/components/Tcp.vue"),
       },
+      {
+        path: PATH.PYTHON,
+        component: () => import("@/components/CallPython.vue"),
+      },
     ],
   });
   

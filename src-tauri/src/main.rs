@@ -9,6 +9,12 @@ use tokio::net::tcp::WriteHalf;
 use tokio::sync::mpsc::{self, Receiver, Sender};
 use tracing::trace;
 use tracing_subscriber::{fmt, layer::SubscriberExt, util::SubscriberInitExt};
+
+use pyo3::prelude::*;
+use pyo3::types::{PyList};
+use std::fs;
+use std::path::Path;
+
 struct Connection {
     data_tx: Sender<Vec<u8>>,
     connect_tx: Sender<String>,
@@ -48,6 +54,21 @@ async fn disconnect(connection: State<'_, Connection>) -> Result<(), String> {
         .send("".into())
         .await
         .map_err(|e| format!("发送失败{:?}", e))
+}
+
+
+#[tauri::command]
+fn call_python() -> Result<String, String> {
+    trace!("call_python");
+    let path = Path::new("../python_app");
+    let py_app = fs::read_to_string(path.join("app.py")).map_err(|_| "app.py not found".to_string())?;
+    Python::with_gil(|py| -> PyResult<String> {
+        let syspath: &PyList = py.import("sys")?.getattr("path")?.downcast()?;
+        syspath.insert(0, path)?;
+        let app = PyModule::from_code(py, &py_app, "", "")?
+            .getattr("run")?;
+        app.call0()?.extract::<String>()
+    }).map_err(|_|"call method error".to_string())
 }
 
 #[tracing::instrument]
@@ -200,7 +221,7 @@ fn main() {
         })
         .manage(connection)
         .menu(tauri::Menu::os_default(&context.package_info().name))
-        .invoke_handler(tauri::generate_handler![connect, disconnect, send_data])
+        .invoke_handler(tauri::generate_handler![connect, disconnect, send_data, call_python])
         .run(context)
         .expect("error while running tauri application");
 }

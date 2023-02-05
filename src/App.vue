@@ -15,6 +15,9 @@
           <el-menu-item :index="PATH.TCP"
             ><el-icon><Switch /></el-icon>TCP</el-menu-item
           >
+          <el-menu-item :index="PATH.PYTHON"
+            ><el-icon><Guide /></el-icon>Python</el-menu-item
+          >
         </el-menu>
       </el-scrollbar>
     </el-aside>
@@ -44,6 +47,7 @@ import {
   CopyDocument,
   PieChart,
   Switch,
+  Guide,
 } from "@element-plus/icons-vue";
 import { PATH } from "@/router/path";
 </script>
